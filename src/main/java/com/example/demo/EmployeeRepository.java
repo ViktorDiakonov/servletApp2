@@ -84,25 +84,27 @@ public class EmployeeRepository {
 
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
+        } finally {
+            try {
+                getConnection().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
         return status;
     }
 
-    public static int delete(int id) {
+    public static int delete(int id) throws SQLException {
 
         int status = 0;
 
-        try {
-            Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("delete from users where id=?");
-            ps.setInt(1, id);
-            status = ps.executeUpdate();
+        Connection connection = EmployeeRepository.getConnection();
+        PreparedStatement ps = connection.prepareStatement("delete from users where id=?");
+        ps.setInt(1, id);
+        status = ps.executeUpdate();
 
-            connection.close();
+        connection.close();
 
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
         return status;
     }
 
