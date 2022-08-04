@@ -23,16 +23,16 @@ public class SaveServlet extends HttpServlet {
         String price = request.getParameter("price");
         String availability = request.getParameter("availability");
 
-        Employee employee = new Employee();
+        Carshop carshop = new Carshop();
 
-        employee.setName(name);
-        employee.setPrice(price);
-        employee.setAvailability(availability);
+        carshop.setName(name);
+        carshop.setPrice(price);
+        carshop.setAvailability(availability);
 
         //out.println(employee.toString());
         //out.println(EmployeeRepository.getConnection());
 
-        int status = EmployeeRepository.save(employee);
+        int status = CarshopRepository.save(carshop);
         //out.println(status);
 
         if (status > 0) {

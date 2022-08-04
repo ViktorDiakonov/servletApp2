@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeRepository {
+public class CarshopRepository {
 
     /*public static void main(String[] args) {
         getConnection();
@@ -35,14 +35,14 @@ public class EmployeeRepository {
         return connection;
     }
 
-    public static int save(Employee employee) {
+    public static int save(Carshop carshop) {
         int status = 0;
         try {
-            Connection connection = EmployeeRepository.getConnection();
+            Connection connection = CarshopRepository.getConnection();
             PreparedStatement ps = connection.prepareStatement("insert into auto_parts(name,price,availability) values (?,?,?)");
-            ps.setString(1, employee.getName());
-            ps.setString(2, employee.getPrice());
-            ps.setString(3, employee.getAvailability());
+            ps.setString(1, carshop.getName());
+            ps.setString(2, carshop.getPrice());
+            ps.setString(3, carshop.getAvailability());
 
             status = ps.executeUpdate();
             connection.close();
@@ -53,17 +53,17 @@ public class EmployeeRepository {
         return status;
     }
 
-    public static int update(Employee employee) {
+    public static int update(Carshop carshop) {
 
         int status = 0;
 
         try {
-            Connection connection = EmployeeRepository.getConnection();
+            Connection connection = CarshopRepository.getConnection();
             PreparedStatement ps = connection.prepareStatement("update auto_parts set name=?,price=?,availability=? where id=?");
-            ps.setString(1, employee.getName());
-            ps.setString(2, employee.getPrice());
-            ps.setString(3, employee.getAvailability());
-            ps.setInt(4, employee.getCode());
+            ps.setString(1, carshop.getName());
+            ps.setString(2, carshop.getPrice());
+            ps.setString(3, carshop.getAvailability());
+            ps.setInt(4, carshop.getCode());
 
             status = ps.executeUpdate();
             connection.close();
@@ -79,7 +79,7 @@ public class EmployeeRepository {
         int status = 0;
 
         try {
-            Connection connection = EmployeeRepository.getConnection();
+            Connection connection = CarshopRepository.getConnection();
             PreparedStatement ps = connection.prepareStatement("delete from auto_parts where code=?");
             ps.setInt(1, code);
             status = ps.executeUpdate();
@@ -92,54 +92,54 @@ public class EmployeeRepository {
         return status;
     }
 
-    public static Employee getEmployeeById(int code) {
+    public static Carshop getEmployeeById(int code) {
 
-        Employee employee = new Employee();
+        Carshop carshop = new Carshop();
 
         try {
-            Connection connection = EmployeeRepository.getConnection();
+            Connection connection = CarshopRepository.getConnection();
             PreparedStatement ps = connection.prepareStatement("select * from auto_parts where code=?");
             ps.setInt(1, code);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                employee.setCode(rs.getInt(1));
-                employee.setName(rs.getString(2));
-                employee.setPrice(rs.getString(3));
-                employee.setAvailability(rs.getString(4));
+                carshop.setCode(rs.getInt(1));
+                carshop.setName(rs.getString(2));
+                carshop.setPrice(rs.getString(3));
+                carshop.setAvailability(rs.getString(4));
             }
             connection.close();
 
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return employee;
+        return carshop;
     }
 
-    public static List<Employee> getAllEmployees() {
+    public static List<Carshop> getAllEmployees() {
 
-        List<Employee> listEmployees = new ArrayList<>();
+        List<Carshop> listCarshops = new ArrayList<>();
 
         try {
-            Connection connection = EmployeeRepository.getConnection();
+            Connection connection = CarshopRepository.getConnection();
             PreparedStatement ps = connection.prepareStatement("select * from auto_parts");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
-                Employee employee = new Employee();
+                Carshop carshop = new Carshop();
 
-                employee.setCode(rs.getInt(1));
-                employee.setName(rs.getString(2));
-                employee.setPrice(rs.getString(3));
-                employee.setAvailability(rs.getString(4));
+                carshop.setCode(rs.getInt(1));
+                carshop.setName(rs.getString(2));
+                carshop.setPrice(rs.getString(3));
+                carshop.setAvailability(rs.getString(4));
 
-                listEmployees.add(employee);
+                listCarshops.add(carshop);
             }
             connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return listEmployees;
+        return listCarshops;
     }
 }

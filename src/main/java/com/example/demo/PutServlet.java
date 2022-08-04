@@ -23,13 +23,13 @@ public class PutServlet extends HttpServlet {
         String name = request.getParameter("name");
         String price = request.getParameter("price");
 
-        Employee employee = new Employee();
-        employee.setCode(code);
-        employee.setName(name);
-        employee.setPrice(price);
-        employee.setAvailability(request.getParameter("availability"));
+        Carshop carshop = new Carshop();
+        carshop.setCode(code);
+        carshop.setName(name);
+        carshop.setPrice(price);
+        carshop.setAvailability(request.getParameter("availability"));
 
-        int status = EmployeeRepository.update(employee);
+        int status = CarshopRepository.update(carshop);
 
         if (status > 0) {
             response.sendRedirect("viewServlet");

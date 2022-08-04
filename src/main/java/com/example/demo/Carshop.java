@@ -1,6 +1,6 @@
 package com.example.demo;
 
-public class Employee {
+public class Carshop {
 
     private int code;
     private String name;
@@ -41,7 +41,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "Carshop{" +
                 "code=" + code +
                 ", name='" + name + '\'' +
                 ", price='" + price + '\'' +

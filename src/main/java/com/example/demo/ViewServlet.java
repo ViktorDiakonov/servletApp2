@@ -17,10 +17,10 @@ public class ViewServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        List<Employee> list = EmployeeRepository.getAllEmployees();
+        List<Carshop> list = CarshopRepository.getAllEmployees();
 
-        for (Employee employee : list) {
-            out.print(employee);
+        for (Carshop carshop : list) {
+            out.print(carshop);
         }
         out.close();
     }
