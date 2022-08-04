@@ -2,17 +2,17 @@ package com.example.demo;
 
 public class Employee {
 
-    private int id;
+    private int code;
     private String name;
     private String country;
-    private String email;
+    private String price;
 
-    public int getId() {
-        return id;
+    public int getCode() {
+        return code;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCode(int id) {
+        this.code = id;
     }
 
     public String getName() {
@@ -31,21 +31,21 @@ public class Employee {
         this.country = country;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPrice() {
+        return price;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
+                "code=" + code +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
-                ", email='" + email + '\'' +
+                ", price='" + price + '\'' +
                 '}';
     }
 }

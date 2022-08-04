@@ -17,16 +17,16 @@ public class PutServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        String sid = request.getParameter("id");
-        int id = Integer.parseInt(sid);
+        String sid = request.getParameter("code");
+        int code = Integer.parseInt(sid);
 
         String name = request.getParameter("name");
-        String email = request.getParameter("email");
+        String price = request.getParameter("price");
 
         Employee employee = new Employee();
-        employee.setId(id);
+        employee.setCode(code);
         employee.setName(name);
-        employee.setEmail(email);
+        employee.setPrice(price);
         employee.setCountry(request.getParameter("country"));
 
         int status = EmployeeRepository.update(employee);

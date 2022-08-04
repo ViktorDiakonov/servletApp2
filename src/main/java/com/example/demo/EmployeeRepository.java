@@ -39,9 +39,9 @@ public class EmployeeRepository {
         int status = 0;
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("insert into auto_parts(name,email,country) values (?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("insert into auto_parts(name,price,country) values (?,?,?)");
             ps.setString(1, employee.getName());
-            ps.setString(2, employee.getEmail());
+            ps.setString(2, employee.getPrice());
             ps.setString(3, employee.getCountry());
 
             status = ps.executeUpdate();
@@ -59,11 +59,11 @@ public class EmployeeRepository {
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("update auto_parts set name=?,email=?,country=? where id=?");
+            PreparedStatement ps = connection.prepareStatement("update auto_parts set name=?,price=?,country=? where id=?");
             ps.setString(1, employee.getName());
-            ps.setString(2, employee.getEmail());
+            ps.setString(2, employee.getPrice());
             ps.setString(3, employee.getCountry());
-            ps.setInt(4, employee.getId());
+            ps.setInt(4, employee.getCode());
 
             status = ps.executeUpdate();
             connection.close();
@@ -74,14 +74,14 @@ public class EmployeeRepository {
         return status;
     }
 
-    public static int delete(int id) {
+    public static int delete(int code) {
 
         int status = 0;
 
         try {
             Connection connection = EmployeeRepository.getConnection();
             PreparedStatement ps = connection.prepareStatement("delete from auto_parts where id=?");
-            ps.setInt(1, id);
+            ps.setInt(1, code);
             status = ps.executeUpdate();
 
             connection.close();
@@ -92,19 +92,19 @@ public class EmployeeRepository {
         return status;
     }
 
-    public static Employee getEmployeeById(int id) {
+    public static Employee getEmployeeById(int code) {
 
         Employee employee = new Employee();
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("select * from auto_parts where id=?");
-            ps.setInt(1, id);
+            PreparedStatement ps = connection.prepareStatement("select * from auto_parts where code=?");
+            ps.setInt(1, code);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                employee.setId(rs.getInt(1));
+                employee.setCode(rs.getInt(1));
                 employee.setName(rs.getString(2));
-                employee.setEmail(rs.getString(3));
+                employee.setPrice(rs.getString(3));
                 employee.setCountry(rs.getString(4));
             }
             connection.close();
@@ -128,9 +128,9 @@ public class EmployeeRepository {
 
                 Employee employee = new Employee();
 
-                employee.setId(rs.getInt(1));
+                employee.setCode(rs.getInt(1));
                 employee.setName(rs.getString(2));
-                employee.setEmail(rs.getString(3));
+                employee.setPrice(rs.getString(3));
                 employee.setCountry(rs.getString(4));
 
                 listEmployees.add(employee);

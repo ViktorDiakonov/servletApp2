@@ -20,13 +20,13 @@ public class SaveServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String name = request.getParameter("name");
-        String email = request.getParameter("email");
+        String price = request.getParameter("price");
         String country = request.getParameter("country");
 
         Employee employee = new Employee();
 
         employee.setName(name);
-        employee.setEmail(email);
+        employee.setPrice(price);
         employee.setCountry(country);
 
         //out.println(employee.toString());
