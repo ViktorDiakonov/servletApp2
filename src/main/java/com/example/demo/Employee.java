@@ -44,8 +44,8 @@ public class Employee {
         return "Employee{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
                 ", country='" + country + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

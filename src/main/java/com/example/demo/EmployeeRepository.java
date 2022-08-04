@@ -6,16 +6,14 @@ import java.util.List;
 
 public class EmployeeRepository {
 
-//    public static void main(String[] args) {
-////        getConnection();
-////
-////        Employee employee = new Employee();
-////
-////        employee.setName("oleg");
-////        employee.setEmail(" ");
-////        employee.setCountry(" ");
-////        save(employee);
-////    }
+    /*public static void main(String[] args) {
+        getConnection();
+        Employee employee = new Employee();
+        employee.setName("oleg");
+        employee.setEmail(" ");
+        employee.setCountry(" ");
+        save(employee);
+    }*/
 
     public static Connection getConnection() {
 
@@ -33,12 +31,6 @@ public class EmployeeRepository {
             }
         } catch (SQLException sqlException) {
             System.out.println(sqlException);
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
         return connection;
     }
@@ -57,12 +49,6 @@ public class EmployeeRepository {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            try {
-                getConnection().close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
         return status;
     }
@@ -84,27 +70,25 @@ public class EmployeeRepository {
 
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
-        } finally {
-            try {
-                getConnection().close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
         return status;
     }
 
-    public static int delete(int id) throws SQLException {
+    public static int delete(int id) {
 
         int status = 0;
 
-        Connection connection = EmployeeRepository.getConnection();
-        PreparedStatement ps = connection.prepareStatement("delete from users where id=?");
-        ps.setInt(1, id);
-        status = ps.executeUpdate();
+        try {
+            Connection connection = EmployeeRepository.getConnection();
+            PreparedStatement ps = connection.prepareStatement("delete from users where id=?");
+            ps.setInt(1, id);
+            status = ps.executeUpdate();
 
-        connection.close();
+            connection.close();
 
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
         return status;
     }
 
