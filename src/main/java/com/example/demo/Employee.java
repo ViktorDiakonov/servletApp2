@@ -4,7 +4,7 @@ public class Employee {
 
     private int code;
     private String name;
-    private String country;
+    private String availability;
     private String price;
 
     public int getCode() {
@@ -23,12 +23,12 @@ public class Employee {
         this.name = name;
     }
 
-    public String getCountry() {
-        return country;
+    public String getAvailability() {
+        return availability;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setAvailability(String availability) {
+        this.availability = availability;
     }
 
     public String getPrice() {
@@ -44,8 +44,8 @@ public class Employee {
         return "Employee{" +
                 "code=" + code +
                 ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
                 ", price='" + price + '\'' +
+                ", availability='" + availability + '\'' +
                 '}';
     }
 }

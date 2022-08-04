@@ -27,7 +27,7 @@ public class PutServlet extends HttpServlet {
         employee.setCode(code);
         employee.setName(name);
         employee.setPrice(price);
-        employee.setCountry(request.getParameter("country"));
+        employee.setAvailability(request.getParameter("availability"));
 
         int status = EmployeeRepository.update(employee);
 
