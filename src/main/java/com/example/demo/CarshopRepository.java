@@ -24,10 +24,10 @@ public class CarshopRepository {
 
         try {
             connection = DriverManager.getConnection(url, user, password);
-            if (connection != null) {
-                System.out.println("Connected to the PostgreSQL server successfully.");
-            } else {
+            if (connection == null) {
                 System.out.println("Failed to make connection!");
+            } else {
+                System.out.println("Connected to the PostgreSQL server successfully.");
             }
         } catch (SQLException sqlException) {
             System.out.println(sqlException);
@@ -39,7 +39,8 @@ public class CarshopRepository {
         int status = 0;
         try {
             Connection connection = CarshopRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("insert into auto_parts(name,price,availability) values (?,?,?)");
+            PreparedStatement ps = connection.prepareStatement(
+                    "insert into auto_parts(name,price,availability) values (?,?,?)");
             ps.setString(1, carshop.getName());
             ps.setString(2, carshop.getPrice());
             ps.setString(3, carshop.getAvailability());
@@ -59,7 +60,8 @@ public class CarshopRepository {
 
         try {
             Connection connection = CarshopRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("update auto_parts set name=?,price=?,availability=? where id=?");
+            PreparedStatement ps = connection.prepareStatement(
+                    "update auto_parts set name=?,price=?,availability=? where code=?");
             ps.setString(1, carshop.getName());
             ps.setString(2, carshop.getPrice());
             ps.setString(3, carshop.getAvailability());
@@ -92,7 +94,7 @@ public class CarshopRepository {
         return status;
     }
 
-    public static Carshop getEmployeeById(int code) {
+    public static Carshop getCarshopByCode(int code) {
 
         Carshop carshop = new Carshop();
 
@@ -115,7 +117,7 @@ public class CarshopRepository {
         return carshop;
     }
 
-    public static List<Carshop> getAllEmployees() {
+    public static List<Carshop> getAllCarshops() {
 
         List<Carshop> listCarshops = new ArrayList<>();
 

@@ -11,13 +11,12 @@ import java.util.List;
 
 @WebServlet("/viewServlet")
 public class ViewServlet extends HttpServlet {
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        List<Carshop> list = CarshopRepository.getAllEmployees();
+        List<Carshop> list = CarshopRepository.getAllCarshops();
 
         for (Carshop carshop : list) {
             out.print(carshop);

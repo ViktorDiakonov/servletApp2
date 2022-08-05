@@ -18,7 +18,7 @@ public class ViewByIDServlet extends HttpServlet {
         String sid = request.getParameter("code");
         int code = Integer.parseInt(sid);
 
-        Carshop carshop = CarshopRepository.getEmployeeById(code);
+        Carshop carshop = CarshopRepository.getCarshopByCode(code);
 
         out.print(carshop);
         out.close();
