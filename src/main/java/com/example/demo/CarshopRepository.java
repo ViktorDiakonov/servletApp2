@@ -39,8 +39,7 @@ public class CarshopRepository {
         int status = 0;
         try {
             Connection connection = CarshopRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement(
-                    "insert into auto_parts(name,price,availability) values (?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("insert into auto_parts(name,price,availability) values (?,?,?)");
             ps.setString(1, carshop.getName());
             ps.setString(2, carshop.getPrice());
             ps.setString(3, carshop.getAvailability());
@@ -60,8 +59,7 @@ public class CarshopRepository {
 
         try {
             Connection connection = CarshopRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement(
-                    "update auto_parts set name=?,price=?,availability=? where code=?");
+            PreparedStatement ps = connection.prepareStatement("update auto_parts set name=?,price=?,availability=? where code=?");
             ps.setString(1, carshop.getName());
             ps.setString(2, carshop.getPrice());
             ps.setString(3, carshop.getAvailability());
