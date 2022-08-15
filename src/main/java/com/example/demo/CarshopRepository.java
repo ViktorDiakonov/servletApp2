@@ -1,9 +1,13 @@
 package com.example.demo;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
+@Logged
 public class CarshopRepository {
 
     /*public static void main(String[] args) {
@@ -15,8 +19,9 @@ public class CarshopRepository {
         save(employee);
     }*/
 
+    @Logged
     public static Connection getConnection() {
-
+        log.info("getConnection() is Ok");
         Connection connection = null;
         String url = "jdbc:postgresql://localhost:5432/employee";
         String user = "postgres";
@@ -35,7 +40,9 @@ public class CarshopRepository {
         return connection;
     }
 
+    @Logged
     public static int save(Carshop carshop) {
+        log.info("added new auto part - start: carshop = {}", carshop);
         int status = 0;
         try {
             Connection connection = CarshopRepository.getConnection();
@@ -50,11 +57,13 @@ public class CarshopRepository {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        log.info("added new auto part - end: status = {}", status);
         return status;
     }
 
+    @Logged
     public static int update(Carshop carshop) {
-
+        log.info("update auto part - start: carshop = {}", carshop);
         int status = 0;
 
         try {
@@ -71,11 +80,13 @@ public class CarshopRepository {
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
+        log.info("update auto part - end: status = {}", status);
         return status;
     }
 
+    @Logged
     public static int delete(int code) {
-
+        log.info("auto part deleted - start: code = {}", code);
         int status = 0;
 
         try {
@@ -89,11 +100,13 @@ public class CarshopRepository {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+        log.info("auto part deleted - end: status = {}", status);
         return status;
     }
 
+    @Logged
     public static Carshop getCarshopByCode(int code) {
-
+        log.info("get auto part by code - start: code = {}", code);
         Carshop carshop = new Carshop();
 
         try {
@@ -112,11 +125,13 @@ public class CarshopRepository {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+        log.info("get auto part by code - end: carshop = {}", carshop);
         return carshop;
     }
 
+    @Logged
     public static List<Carshop> getAllCarshops() {
-
+        log.info("get all auto parts - start");
         List<Carshop> listCarshops = new ArrayList<>();
 
         try {
@@ -140,6 +155,7 @@ public class CarshopRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        log.info("get all auto parts - end");
         return listCarshops;
     }
 }
