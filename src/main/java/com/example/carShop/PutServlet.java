@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.carShop;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,37 +8,33 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/saveServlet")
-public class SaveServlet extends HttpServlet {
+@WebServlet("/putServlet")
+public class PutServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
-
+        response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+
+        String sid = request.getParameter("code");
+        int code = Integer.parseInt(sid);
 
         String name = request.getParameter("name");
         String price = request.getParameter("price");
-        String availability = request.getParameter("availability");
 
         Carshop carshop = new Carshop();
-
+        carshop.setCode(code);
         carshop.setName(name);
         carshop.setPrice(price);
-        carshop.setAvailability(availability);
+        carshop.setAvailability(request.getParameter("availability"));
 
-        //out.println(employee.toString());
-        //out.println(EmployeeRepository.getConnection());
-
-        int status = CarshopRepository.save(carshop);
-        //out.println(status);
+        int status = CarshopRepository.update(carshop);
 
         if (status > 0) {
-            out.print("Record saved successfully!");
+            response.sendRedirect("viewServlet");
         } else {
-            out.println("Sorry! unable to save record");
+            out.println("Sorry! unable to update record");
         }
         out.close();
     }
