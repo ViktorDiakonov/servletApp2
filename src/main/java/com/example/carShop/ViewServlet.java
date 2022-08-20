@@ -16,8 +16,9 @@ public class ViewServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        List<Carshop> list = CarshopRepository.getAllCarshops();
-
+        //List<Carshop> list = CarshopRepository.getAllCarshops();
+       // List<Carshop> list = CarshopRepository.getCarByCode();
+        List<Carshop> list = CarshopRepository.getAllisCarshops();
         for (Carshop carshop : list) {
             out.print(carshop);
         }

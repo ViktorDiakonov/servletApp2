@@ -13,6 +13,7 @@ public class Carshop {
     private String name;
     private String availability;
     private String price;
+    private Boolean isDeleted = Boolean.FALSE;
 
 //    public int getCode() {
 //        return code;
