@@ -308,4 +308,39 @@ public class CarshopRepository {
         log.info("get all auto parts - end");
         return listCarshops;
     }
+
+    @Logged
+    public static List<Carshop> getCarsForChina() {
+        log.info("get all auto parts - start");
+        List<Carshop> listCarshops = new ArrayList<>();
+
+        try {
+            Connection connection = CarshopRepository.getConnection();
+            PreparedStatement ps = connection.prepareStatement("select * from auto_parts");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Carshop carshop = new Carshop();
+
+                carshop.setCode(rs.getInt(1));
+                carshop.setName(rs.getString(2));
+                carshop.setPrice(rs.getString(3));
+                carshop.setAvailability(rs.getString(4));
+                carshop.setIsDeleted(rs.getBoolean(5));
+                carshop.setColor(rs.getString(6));
+                carshop.setCountry(rs.getString(7));
+                if (carshop.getCountry().equals("cn")){
+                    listCarshops.add(carshop);
+                }
+
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        log.info("get all auto parts - end");
+        return listCarshops;
+    }
 }
