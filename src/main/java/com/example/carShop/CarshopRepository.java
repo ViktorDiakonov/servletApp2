@@ -11,8 +11,9 @@ import java.util.List;
 public class CarshopRepository {
 
     public static void main(String[] args) {
-        getConnection();
-        isDeleted(13);
+        getAllisCarshops();
+   //     getConnection();
+     //   isDeleted(13);
 //        Employee employee = new Employee();
 //        employee.setName("oleg");
 //        employee.setEmail(" ");
@@ -43,7 +44,7 @@ public class CarshopRepository {
 
     @Logged
     public static int save(Carshop carshop) {
-       log.info("added new auto part - start: carshop = {}", carshop);
+        log.info("added new auto part - start: carshop = {}", carshop);
         int status = 0;
         try {
             Connection connection = CarshopRepository.getConnection();
@@ -62,7 +63,7 @@ public class CarshopRepository {
         return status;
     }
 
-   @Logged
+    @Logged
     public static int update(Carshop carshop) {
         log.info("update auto part - start: carshop = {}", carshop);
         int status = 0;
@@ -81,11 +82,11 @@ public class CarshopRepository {
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
-       log.info("update auto part - end: status = {}", status);
+        log.info("update auto part - end: status = {}", status);
         return status;
     }
 
-   @Logged
+    @Logged
     public static int delete(int code) {
         log.info("auto part deleted - start: code = {}", code);
         int status = 0;
@@ -101,13 +102,13 @@ public class CarshopRepository {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-      log.info("auto part deleted - end: status = {}", status);
+        log.info("auto part deleted - end: status = {}", status);
         return status;
     }
 
     @Logged
     public static int isDeleted(int code) {
-       log.info("auto part isDeleted - start: code = {}", code);
+        log.info("auto part isDeleted - start: code = {}", code);
         int status = 0;
 
         try {
@@ -152,6 +153,8 @@ public class CarshopRepository {
         log.info("get auto part by code - end: carshop = {}", carshop);
         return carshop;
     }
+
+
 
     @Logged
     public static Carshop getCarByCode() {
@@ -210,6 +213,68 @@ public class CarshopRepository {
     }
 
     @Logged
+    public static List<Carshop> getCarshopByCountry() {
+        log.info("get all auto parts - start");
+        List<Carshop> listCarshops = new ArrayList<>();
+
+        try {
+            Connection connection = CarshopRepository.getConnection();
+            PreparedStatement ps = connection.prepareStatement("select * from auto_parts");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Carshop carshop = new Carshop();
+
+                carshop.setCode(rs.getInt(1));
+                carshop.setName(rs.getString(2));
+                carshop.setPrice(rs.getString(3));
+                carshop.setAvailability(rs.getString(4));
+                carshop.setIsDeleted(rs.getBoolean(5));
+                carshop.setColor(rs.getString(6));
+                carshop.setCountry(rs.getString(7));
+                listCarshops.add(carshop);
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        log.info("get all auto parts - end");
+        return listCarshops;
+    }
+
+    @Logged
+    public static List<Carshop> getAllChinaCarshops() {
+        log.info("get all China auto parts - start");
+        List<Carshop> listCarshops = new ArrayList<>();
+
+        try {
+            Connection connection = CarshopRepository.getConnection();
+            PreparedStatement ps = connection.prepareStatement("select * from auto_parts");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Carshop carshop = new Carshop();
+
+                carshop.setCode(rs.getInt(1));
+                carshop.setName(rs.getString(2));
+                carshop.setPrice(rs.getString(3));
+                carshop.setAvailability(rs.getString(4));
+                carshop.setIsDeleted(rs.getBoolean(5));
+                listCarshops.add(carshop);
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        log.info("get all China auto parts - end");
+        return listCarshops;
+    }
+
+    @Logged
     public static List<Carshop> getAllisCarshops() {
         log.info("get all auto parts - start");
         List<Carshop> listCarshops = new ArrayList<>();
@@ -228,7 +293,12 @@ public class CarshopRepository {
                 carshop.setPrice(rs.getString(3));
                 carshop.setAvailability(rs.getString(4));
                 carshop.setIsDeleted(rs.getBoolean(5));
-                listCarshops.add(carshop);
+                carshop.setColor(rs.getString(6));
+                carshop.setCountry(rs.getString(7));
+                if (carshop.getCountry().equals("cn")){
+                    listCarshops.add(carshop);
+                }
+
             }
             connection.close();
 

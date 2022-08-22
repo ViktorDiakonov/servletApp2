@@ -14,6 +14,8 @@ public class Carshop {
     private String availability;
     private String price;
     private Boolean isDeleted = Boolean.FALSE;
+    private String color;
+    private String country;
 
 //    public int getCode() {
 //        return code;
